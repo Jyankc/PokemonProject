@@ -4,10 +4,10 @@ const { DataTypes } = require('sequelize');
 module.exports = (sequelize) => {
   // defino el modelo
   sequelize.define('pokemon', {
-    uuid:{ 
+   uuid:{ 
       primaryKey:true,
       type:DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV1,
+      defaultValue: DataTypes.UUIDV4,
       allowNull: false,
 
     },
