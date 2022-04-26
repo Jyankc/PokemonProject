@@ -3,8 +3,8 @@ import s from "./pokecreate.module.css"
 import { getPokemons, getTypes } from "../actiontypes";
 import { useDispatch, useSelector } from 'react-redux'
 import {useHistory} from "react-router-dom"
-const herokuApp= 'https://pok3api-back.herokuapp.com/pokemons'
-const localhost = 'https://localhost:3001'
+
+const URL = process.env.REACT_APP_API ||'https://localhost:3001'
 
 
 function PokeCreation(props) {
@@ -48,7 +48,7 @@ function PokeCreation(props) {
 
   
 
-        const crear = await fetch(herokuApp,{
+        const crear = await fetch(`${URL}`,{
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(pokemon)

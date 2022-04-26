@@ -4,7 +4,7 @@ var express = require('express');
 var router = express.Router();
 const db = require('../db.js');
 const { Op } = require('sequelize')
-const URL= process.env.REACT_APP_API || 'https://localhost:3001'
+
 router.get('/pokemons/types', async (req, res) => {
     const types = await db.Types.findAll();
 

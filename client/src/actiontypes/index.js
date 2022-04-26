@@ -5,7 +5,7 @@ export const GET_POKEMON_NAME = 'GET_POKEMON_NAME';
 export const GET_FILTERED = 'GET_FILTERED';
 export const GET_ATTACK_FILTER = 'GET_ATTACK_FILTER';
 export const GET_CANCEL_FILTER = 'GET_CANCEL_FILTER';
-const URL= process.env.REACT_APP_API || 'https://localhost:3001'
+const URL= process.env.REACT_APP_API || 'http://localhost:3001'
 
 export function getPokemons() {
     return function (dispatch) {
