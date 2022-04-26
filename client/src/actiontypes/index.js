@@ -1,47 +1,60 @@
 export const GET_ALL_POKEMONS = 'GET_ALL_POKEMONS';
-export const CREATE_POKEMON = 'CREATE_POKEMON';
-export const GET_POKEMON = 'GET_POKEMON';
+export const GET_TYPES = 'GET_TYPES';
+export const GET_POKEMON_ID = 'GET_POKEMON_ID';
 export const GET_POKEMON_NAME = 'GET_POKEMON_NAME';
-
+export const GET_FILTERED = 'GET_FILTERED';
+export const GET_ATTACK_FILTER = 'GET_ATTACK_FILTER';
+export const GET_CANCEL_FILTER = 'GET_CANCEL_FILTER';
+const URL= process.env.REACT_APP_API || 'https://localhost:3001'
 
 export function getPokemons() {
     return function (dispatch) {
-        return fetch('http://localhost:3001/pokemons')
+        return fetch(`${URL}/pokemons`)
             .then(data => data.json())
             .then(result => { dispatch({ type: GET_ALL_POKEMONS, payload: result }) })
 
     }
 }
 
-export function getPokemon(id) {
+export function getPokemonId(id) {
     return function (dispatch) {
-        return fetch(`http://localhost:3001/pokemons/${id}`)
+        return fetch(`${URL}/pokemons/${id}`)
             .then(data => data.json())
-            .then(result => { dispatch({ type: GET_POKEMON, payload: result }) })
+            .then(result => { dispatch({ type: GET_POKEMON_ID, payload: result }) })
     }
 }
 
 export function getPokemonName(name) {
     return function (dispatch) {
-        return fetch(`http://localhost:3001/pokemons?name=${name}`)
+        return fetch(`${URL}/pokemons?name=${name}`)
             .then(data => data.json())
             .then(result => { dispatch({ type: GET_POKEMON_NAME, payload: result }) })
     }
 }
 
-export function createPokemon(ObjInfo) {
-    return function(dispatch){
-    const reqOptions = {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ObjInfo })
-    };
-    return fetch('http://localhost:3001/pokemons', reqOptions)
-        .then(response => response.json())
-        .then(data => { dispatch({ type: CREATE_POKEMON, payload: data }) });
+export function getTypes() {
+    return function (dispatch) {
+        return fetch(`${URL}/pokemons/types`)
+            .then(data => data.json())
+            .then(result => { dispatch({ type: GET_TYPES, payload: result }) })
 
-    }   
 
+    }
 }
+
+export function getFiltered(array) {
+    return function (dispatch) {
+        return dispatch({ type: GET_FILTERED, payload: array })
+
+    }
+}
+
+
+
+export function cancelFilter(){
+    return function(dispatch){
+        dispatch({type: GET_CANCEL_FILTER, payload:[] })}
+    }
+    
 
 

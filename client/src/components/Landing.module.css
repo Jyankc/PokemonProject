@@ -1,0 +1,41 @@
+.landing{
+    display: flex;
+    padding:0;
+    margin:0;
+    background-color: black;
+    height: 100vh;
+    width: 100%;
+          
+}
+
+.image{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: end;
+    font-family:'Times New Roman', Times, serif;
+    background-image: url('./landingtemplate.jpg');
+    background-size:cover;
+    height: 100%;
+    width: 100%;
+    position:relative;
+}
+
+.image p {
+    font-size:xx-large;
+    font-weight: 600;
+    font-style: oblique;
+    position: relative;
+    /* bottom:10%;
+    right:30% */
+}
+
+.image button{
+    font-size:xx-large;
+    font-weight: 600;
+    font-style: oblique;
+    position: relative;
+    /* bottom:50%;
+    right:30% */
+    
+}
