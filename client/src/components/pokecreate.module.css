@@ -13,8 +13,13 @@ align-items: center;
     font-size: x-large;
     font-family:Arial, Helvetica, sans-serif;
     font-weight: 700;
+<<<<<<< HEAD
     color:rgb(250, 57, 36);
     background: rgba(250, 235, 215, 0.1)
+=======
+    color:salmon;
+    background-color: (antiquewhite,50%)
+>>>>>>> e976989b5a91df41c69930b3681b2406c22719de
 }
 .form{
 display:flex;
@@ -25,11 +30,14 @@ width:50%;
 /* background-image: linear-gradient(45deg, #616125, #e6344cf4 40%); */
 border-radius: 5px;
 border:2px solid salmon;
+<<<<<<< HEAD
 opacity: 0.9;
 font-family: Arial, Helvetica, sans-serif;
 font-size: medium;
 font-weight: 600;
 
+=======
+>>>>>>> e976989b5a91df41c69930b3681b2406c22719de
 }
 
 .form p{
@@ -40,7 +48,10 @@ margin: 4px 0 4px;
     display: inline-block;
     width: 150px;
     text-align: baseline;
+<<<<<<< HEAD
     background:rgba(250, 128, 114,0.5);
     border-radius:3px;
     text-align: center;
+=======
+>>>>>>> e976989b5a91df41c69930b3681b2406c22719de
 }

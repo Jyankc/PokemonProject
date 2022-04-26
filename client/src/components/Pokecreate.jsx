@@ -46,6 +46,8 @@ function PokeCreation(props) {
         e.preventDefault()
         console.log(pokemon)
 
+  
+
         const crear = await fetch(herokuApp,{
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
