@@ -1,5 +1,5 @@
 import './App.css';
-import { NavLink, Route, Routes } from 'react-router-dom'
+import { NavLink, Route, Routes, Switch } from 'react-router-dom'
 import Homepage from './components/Homepage.jsx'
 import LandingPage from './components/LandingPage'
 import PokeDetails from './components/Pokedetails'
@@ -11,16 +11,18 @@ import React from 'react';
 
 function App() {
   return (
-
-    <div>
+  
+    <div className='App' >
+     
+      
+      
       <Route exact path='/' component={LandingPage} />
-      {/* <Route exact path='/' component={App} /> */}
+      <Route path={["/home", "/about", "/create", "/pokemon"]} component={NavBar} />
       <Route exact path='/home' render={({match})=> <Homepage id={match.params.home}  />}/>
-      {/* <Route exact path='/about' component={Homepage}/> */}
       <Route expact path='/about' component={About}/>
-      <Route expact path='/navbar' component={NavBar}/>
       <Route expact path='/create' component={Pokecreate}/>
       <Route exact path='/pokemon/:id' render={({match})=> <PokeDetails id={match.params.id}  />} />
+     
       
 
     </div>

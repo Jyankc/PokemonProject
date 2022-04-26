@@ -1,11 +1,13 @@
-import { CREATE_POKEMON, GET_ALL_POKEMONS, GET_POKEMON, GET_POKEMON_NAME} from "../actiontypes";
+import { GET_TYPES, GET_ALL_POKEMONS, GET_POKEMON_ID, GET_POKEMON_NAME, GET_FILTERED, GET_CANCEL_FILTER} from "../actiontypes";
 import React from "react";
 import { Reducer } from "react";
 
 
 const initialState = {
     pokemonAll: [],
-    pokemon: {}
+    pokemon: {},
+    types:[],
+    filtered:[], //filtrado
 }
 
 const rootReducer = function (state = initialState, action) {
@@ -14,7 +16,7 @@ const rootReducer = function (state = initialState, action) {
             return { ...state, pokemonAll: action.payload }
         }
 
-        case GET_POKEMON: {
+        case GET_POKEMON_ID: {
 
             return { ...state, pokemon: action.payload }
         }
@@ -24,8 +26,18 @@ const rootReducer = function (state = initialState, action) {
             return { ...state, pokemon: action.payload }
         }
 
-        case CREATE_POKEMON: {
-            return { ...state, pokemonAll: [...state.pokemonAll, action.payload] }
+        case GET_TYPES: {
+            return { ...state, types: action.payload }
+        }
+        
+        case GET_FILTERED: {
+            return { ...state, filtered: action.payload }
+        }
+
+ 
+       
+        case GET_CANCEL_FILTER: {
+            return { ...state, filtered: action.payload }
         }
 
 

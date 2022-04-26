@@ -1,0 +1,26 @@
+.container{
+    width: 100%;
+    display: flex;
+    border: 2px  #D5A100 solid;
+    background-color: #0A285F;
+    border-radius: 5px;
+    padding: 0;
+}
+
+.container form{
+    display:flex;
+    flex-direction: row;
+    padding:4px;
+}
+.container button{
+    height: 100%;
+    padding:0px;
+    margin:1px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 800;
+    background-color: #E54222 ;
+    text-align: center;
+    
+   
+}
+
