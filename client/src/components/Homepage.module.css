@@ -35,3 +35,8 @@ overflow:hidden;
     background-color: #be0600;
     border-top:2px solid black;
 }
+
+.pagination p{
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 600;
+}

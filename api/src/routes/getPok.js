@@ -58,8 +58,15 @@ router.post('/pokemons', async (req, res) => {
 
     const {types, name } = req.body
     if (!types || !name || types.length === 0) { return res.status(502).json({ Error: 'types or names cannot be undefined' }) }
-    else if (await db.Pokemon.findOne({ where: { name: name } })) { return res.status(403).json({ Error: 'Pokemon already exists' }) }
+    const result =await fetch(`https://pokeapi.co/api/v2/pokemon/${name}`)
+    .then(data=>data.json())
+    .catch(err=>console.log(err))
+    // const data= await result.json();
+    
+    if (result && result.name===name) { return res.status(403).json({ Error: 'Pokemon already exists' })}
+    if (await db.Pokemon.findOne({ where: { name: name } })) { return res.status(403).json({ Error: 'Pokemon already exists' }) }
     else {
+        
         const created = await db.Pokemon.create(req.body)
         await created.addTypes(types)
         res.status(201).json(created)

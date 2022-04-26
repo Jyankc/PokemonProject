@@ -3,6 +3,8 @@ import s from "./pokecreate.module.css"
 import { getPokemons, getTypes } from "../actiontypes";
 import { useDispatch, useSelector } from 'react-redux'
 import {useHistory} from "react-router-dom"
+const local='http://localhost:3001/pokemons'
+const heroku='https://pok3api-back.herokuapp.com/pokemons'
 
 
 
@@ -47,7 +49,7 @@ function PokeCreation(props) {
 
   
 
-        const crear = await fetch(`https://pok3api-back.herokuapp.com/pokemons`,{
+        const crear = await fetch(local,{
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(pokemon)
@@ -201,8 +203,8 @@ function PokeCreation(props) {
                             {types.map((x, i) =>
                                 <p> 
                                     
-                                    <input type="checkbox" name='types' value={x.id} onChange={handleChecks} id={`${i}`} />
                                     <label>{x.name}</label>
+                                    <input type="checkbox" name='types' value={x.id} onChange={handleChecks} id={`${i}`} />
                                 </p>
                             )}
                         </div>

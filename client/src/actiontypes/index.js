@@ -6,10 +6,13 @@ export const GET_FILTERED = 'GET_FILTERED';
 export const GET_ATTACK_FILTER = 'GET_ATTACK_FILTER';
 export const GET_CANCEL_FILTER = 'GET_CANCEL_FILTER';
 const URL= process.env.REACT_APP_API || 'http://localhost:3001'
+console.log(URL)
+const URL2= 'http://localhost:3001'
+const URL3='https://pok3api-back.herokuapp.com'
 
 export function getPokemons() {
     return function (dispatch) {
-        return fetch(`${URL}/pokemons`)
+        return fetch(`${URL2}/pokemons`)
             .then(data => data.json())
             .then(result => { dispatch({ type: GET_ALL_POKEMONS, payload: result }) })
 
@@ -18,7 +21,7 @@ export function getPokemons() {
 
 export function getPokemonId(id) {
     return function (dispatch) {
-        return fetch(`${URL}/pokemons/${id}`)
+        return fetch(`${URL2}/pokemons/${id}`)
             .then(data => data.json())
             .then(result => { dispatch({ type: GET_POKEMON_ID, payload: result }) })
     }
@@ -26,7 +29,7 @@ export function getPokemonId(id) {
 
 export function getPokemonName(name) {
     return function (dispatch) {
-        return fetch(`${URL}/pokemons?name=${name}`)
+        return fetch(`${URL2}/pokemons?name=${name}`)
             .then(data => data.json())
             .then(result => { dispatch({ type: GET_POKEMON_NAME, payload: result }) })
     }
@@ -34,7 +37,7 @@ export function getPokemonName(name) {
 
 export function getTypes() {
     return function (dispatch) {
-        return fetch(`${URL}/pokemons/types`)
+        return fetch(`${URL2}/pokemons/types`)
             .then(data => data.json())
             .then(result => { dispatch({ type: GET_TYPES, payload: result }) })
 

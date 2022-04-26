@@ -10,6 +10,8 @@ const initialState = {
     filtered:[], //filtrado
 }
 
+//
+
 const rootReducer = function (state = initialState, action) {
     switch (action.type) {
         case GET_ALL_POKEMONS: {
@@ -39,6 +41,8 @@ const rootReducer = function (state = initialState, action) {
         case GET_CANCEL_FILTER: {
             return { ...state, filtered: action.payload }
         }
+
+
 
 
         default: return state
