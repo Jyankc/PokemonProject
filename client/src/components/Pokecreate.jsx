@@ -49,7 +49,7 @@ function PokeCreation(props) {
 
   
 
-        const crear = await fetch(local,{
+        const crear = await fetch(heroku,{
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(pokemon)
