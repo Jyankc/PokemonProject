@@ -13,7 +13,7 @@ function App() {
   return (
     
     <div className='App' >
-      <Route  exact path={["/home", "/about", "/create", "/pokemon"]} component={NavBar} />
+      <Route  exact path={["/home", "/about", "/create", "/pokemon/:id"]} component={NavBar} />
       <Switch>
       <Route  exact path='/' component={LandingPage} />
       <Route exact path='/home' render={({match})=> <Homepage id={match.params.home}  />}/>
