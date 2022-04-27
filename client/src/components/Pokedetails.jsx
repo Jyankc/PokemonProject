@@ -4,7 +4,7 @@
 // - [ ] Estadísticas (vida, fuerza, defensa, velocidad)
 // - [ ] Altura y peso
 import React from "react";
-import { getPokemonId, getPokemonName } from "../actiontypes/index.js";
+import { getPokemonId, getPokemonName,cleanPokemon} from "../actiontypes/index.js";
 import { useDispatch, useSelector } from "react-redux";
 import s from './Pokedetails.module.css'
 
@@ -12,17 +12,21 @@ function PokeDetails(props) {
     const dispatch = useDispatch()
     const pokemon = useSelector((state) => state.pokemon)
     const search =props.id
+   
+   
+   
     React.useEffect(() => {
         let result
         if (!(isNaN(Number(search)))){  result=parseInt(search)}
         else {result=search}
 
         if (typeof (result) === 'number') {
-            return dispatch(getPokemonId(result));
+            dispatch(getPokemonId(result));
         }
-        if (typeof (result === 'string') && result.length > 20) { return dispatch(getPokemonId(result)) }
-        else if (typeof (result === 'string') && result.length < 20) { return dispatch(getPokemonName(result)) }
-    }, [])
+        else if (typeof (result === 'string') && result.length > 20) { dispatch(getPokemonId(result)) }
+        else if (typeof (result === 'string') && result.length < 20) { dispatch(getPokemonName(result)) }
+        
+        return () => dispatch(cleanPokemon()) }, [] )
 
     if (pokemon.hasOwnProperty('Error')) {
         return (

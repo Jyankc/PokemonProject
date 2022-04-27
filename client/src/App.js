@@ -1,28 +1,30 @@
 import './App.css';
-import { NavLink, Route, Routes, Switch } from 'react-router-dom'
+import {  Route, Switch, Redirect } from 'react-router-dom'
 import Homepage from './components/Homepage.jsx'
 import LandingPage from './components/LandingPage'
 import PokeDetails from './components/Pokedetails'
 import Pokecreate from './components/Pokecreate'
-import SearchBar from './components/SearchBar';
+import NotFound from './components/NotFound'
 import NavBar from './components/NavBar';
 import About from './components/About'
 import React from 'react';
 
 function App() {
   return (
-  
+    
     <div className='App' >
-     
-      
-      
-      <Route exact path='/' component={LandingPage} />
-      <Route path={["/home", "/about", "/create", "/pokemon"]} component={NavBar} />
+      <Route  exact path={["/home", "/about", "/create", "/pokemon"]} component={NavBar} />
+      <Switch>
+      <Route  exact path='/' component={LandingPage} />
       <Route exact path='/home' render={({match})=> <Homepage id={match.params.home}  />}/>
-      <Route expact path='/about' component={About}/>
-      <Route expact path='/create' component={Pokecreate}/>
-      <Route exact path='/pokemon/:id' render={({match})=> <PokeDetails id={match.params.id}  />} />
-     
+      <Route  path='/about' component={About}/>
+      <Route  path='/create' component={Pokecreate}/>
+      <Route  path='/pokemon/:id' render={({match})=> <PokeDetails id={match.params.id}  />} />    
+      <Route path='*' component={NotFound} />
+      </Switch>
+      
+      
+
       
 
     </div>

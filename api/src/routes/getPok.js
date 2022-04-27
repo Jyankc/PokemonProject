@@ -3,7 +3,7 @@ var express = require('express');
 // const Pokemon = require('../models/Pokemon');
 var router = express.Router();
 const db = require('../db.js');
-const { Op } = require('sequelize')
+const { Op, set } = require('sequelize')
 
 router.get('/pokemons/types', async (req, res) => {
     const types = await db.Types.findAll();
@@ -42,7 +42,7 @@ router.post('/pokemons/bulk', async (req, res) => {
 
 
 
-    const results =  created.map(async el => {
+    const results = created.map(async el => {
         const newPoke = await db.Pokemon.create(el)
         await newPoke.addTypes(el['types'])
         return newPoke
@@ -56,17 +56,17 @@ router.post('/pokemons/bulk', async (req, res) => {
 
 router.post('/pokemons', async (req, res) => {
 
-    const {types, name } = req.body
+    const { types, name } = req.body
     if (!types || !name || types.length === 0) { return res.status(502).json({ Error: 'types or names cannot be undefined' }) }
-    const result =await fetch(`https://pokeapi.co/api/v2/pokemon/${name}`)
-    .then(data=>data.json())
-    .catch(err=>console.log(err))
+    const result = await fetch(`https://pokeapi.co/api/v2/pokemon/${name}`)
+        .then(data => data.json())
+        .catch(err => console.log(err))
     // const data= await result.json();
-    
-    if (result && result.name===name) { return res.status(403).json({ Error: 'Pokemon already exists' })}
+
+    if (result && result.name === name) { return res.status(403).json({ Error: 'Pokemon already exists' }) }
     if (await db.Pokemon.findOne({ where: { name: name } })) { return res.status(403).json({ Error: 'Pokemon already exists' }) }
     else {
-        
+
         const created = await db.Pokemon.create(req.body)
         await created.addTypes(types)
         res.status(201).json(created)
@@ -128,59 +128,64 @@ router.get('/pokemons', async (req, res) => {
 
 
     else {
-            const myPoke = await db.Pokemon.findAll({
-                include: [{
-                    model: db.Types,
-                    through: { attributes: [] },
-                    attributes: ['name']
-                }],
-                attributes: ['name', 'uuid', 'img', 'attack']
-            })
-            const myPoke2 = myPoke.map(el => {
-                const obj = {
-                    name: el.name,
-                    uuid: el.uuid,
-                    img: el.img,
-                    types: el.types.map(el => { return el.name }),
-                    attack: el.attack
+        const myPoke = await db.Pokemon.findAll({
+            include: [{
+                model: db.Types,
+                through: { attributes: [] },
+                attributes: ['name']
+            }],
+            attributes: ['name', 'uuid', 'img', 'attack']
+        })
+        const myPoke2 = myPoke.map(el => {
+            const obj = {
+                name: el.name,
+                uuid: el.uuid,
+                img: el.img,
+                types: el.types.map(el => { return el.name }),
+                attack: el.attack
 
-                }
-                return obj
-            })
-
-
-
-            const arrayUrl = []
-            for (i = 1; i <= 40; i++) {
-                arrayUrl.push(`https://pokeapi.co/api/v2/pokemon/${i}`);
             }
-
-
-            const promises = arrayUrl.map(url => fetch(url));
-            Promise.all(promises)
-                .then(responses => Promise.all(responses.map(el => el.json())))
-                .then(array => {
-                    const array2 = array.map(poke => {
-                        return {
-                            name: poke.name,
-                            id: poke.id,
-                            types: poke.types.map(el => el.type.name),
-                            img: poke.sprites.other['official-artwork'].front_default,
-                            attack: poke.stats[1].base_stat
-                        }
-
-
-                    })
-                    const resultFinal = [...myPoke2, ...array2]
-                    res.json(resultFinal)
-                }).catch(err => res.json(err))
+            return obj
+        })
 
 
 
+        const arrayUrl = []
+        for (i = 1; i <= 40; i++) {
+            arrayUrl.push(`https://pokeapi.co/api/v2/pokemon/${i}`);
         }
-    })
+
+
+        const promises = arrayUrl.map(url => fetch(url));
+        Promise.all(promises)
+            .then(responses => Promise.all(responses.map(el => el.json())))
+            .then(array => {
+                const array2 = array.map(poke => {
+                    return {
+                        name: poke.name,
+                        id: poke.id,
+                        types: poke.types.map(el => el.type.name),
+                        img: poke.sprites.other['official-artwork'].front_default,
+                        attack: poke.stats[1].base_stat
+                    }
+
+
+                })
+                const resultFinal = [...myPoke2, ...array2]
+                res.json(resultFinal)
+            }).catch(err => res.json(err))
+
+
+
+    }
+})
+
+
+
+
 
 router.get('/pokemons/:id', async (req, res) => {
+    console.log('hello id')
     const { id } = req.params
 
     if (isNaN((Number(id)))) {  //463f091f-d4ea-406a-a23c-07a604c715e5
@@ -236,12 +241,37 @@ router.get('/pokemons/:id', async (req, res) => {
 
             })
             .then(data => res.json(data))
-            .catch(err=>res.json({Error:'Pokemon not found '}))
+            .catch(err => res.json({ Error: 'Pokemon not found ' }))
 
     }
 
 })
 
+router.delete('/delete/:id', async (req, res) => {
+    const { id } = req.params;
+    await db.Pokemon.destroy({ where: { uuid: id } })
+        .then((data) => res.json({ Message: 'Pokemon was deleted' }))
+        .catch((err) => res.json(err))
+
+
+})
+router.put('/pokemons', async (req, res) => {
+    const { id, name, health } = req.body;
+    let poke = await db.Pokemon.findOne({ where: { uuid: id } })
+    poke.set({
+        name: name,
+        health: health
+    })
+    poke = await poke.save()
+
+
+
+    res.json(poke)
+
+
+
+
+})
 
 module.exports = router;
 

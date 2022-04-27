@@ -5,6 +5,7 @@ export const GET_POKEMON_NAME = 'GET_POKEMON_NAME';
 export const GET_FILTERED = 'GET_FILTERED';
 export const GET_ATTACK_FILTER = 'GET_ATTACK_FILTER';
 export const GET_CANCEL_FILTER = 'GET_CANCEL_FILTER';
+export const CLEAN_POKEMON = 'CLEAN_POKEMON';
 const URL= process.env.REACT_APP_API || 'http://localhost:3001'
 console.log(URL)
 const URL2= 'http://localhost:3001'
@@ -60,4 +61,8 @@ export function cancelFilter(){
     }
     
 
-
+export function cleanPokemon(){
+    return function(dispatch){
+        dispatch({type: CLEAN_POKEMON, payload: {}})
+    }
+}

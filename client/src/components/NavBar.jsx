@@ -25,7 +25,7 @@ function NavBar(props) {
                     </div>
                     <div className={s.divFilters}>
                     
-                    <Route exact path="/home" >
+                    <Route stric path={["/home","*"] }>
                      <li className='item'> <SearchBar></SearchBar></li>
                     </Route>
                     

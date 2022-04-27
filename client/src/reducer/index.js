@@ -1,6 +1,5 @@
-import { GET_TYPES, GET_ALL_POKEMONS, GET_POKEMON_ID, GET_POKEMON_NAME, GET_FILTERED, GET_CANCEL_FILTER} from "../actiontypes";
-import React from "react";
-import { Reducer } from "react";
+import { GET_TYPES, GET_ALL_POKEMONS, GET_POKEMON_ID, GET_POKEMON_NAME, GET_FILTERED, GET_CANCEL_FILTER, CLEAN_POKEMON} from "../actiontypes";
+
 
 
 const initialState = {
@@ -42,6 +41,9 @@ const rootReducer = function (state = initialState, action) {
             return { ...state, filtered: action.payload }
         }
 
+        case CLEAN_POKEMON: {
+            return {...state, pokemon:{}}
+        }
 
 
 
